@@ -44,3 +44,7 @@ export interface Track {
   artist: string;
   url: string;
 }
+
+export interface CartItem extends Edition {
+  quantity: number;
+}

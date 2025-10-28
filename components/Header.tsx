@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useCart } from '../contexts/CartContext';
 
 interface HeaderProps {
   onNavigate: (section: string) => void;
+  onCartClick: () => void;
 }
 
 const NAV_ITEMS = [
@@ -12,8 +14,14 @@ const NAV_ITEMS = [
   { key: 'contact', label: 'Contato' },
 ];
 
-const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
+const CartIcon: React.FC<{className?: string}> = ({className}) => (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+);
+
+
+const Header: React.FC<HeaderProps> = ({ onNavigate, onCartClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { totalItems } = useCart();
 
   const handleNavClick = (section: string) => {
     onNavigate(section);
@@ -29,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
               PDFanzine
             </a>
           </div>
-          <nav className="hidden md:block">
+          <nav className="hidden md:flex items-center">
             <div className="ml-10 flex items-baseline space-x-4">
               {NAV_ITEMS.map((item) => (
                 <button
@@ -41,8 +49,24 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                 </button>
               ))}
             </div>
+            <button onClick={onCartClick} className="ml-6 relative text-medium-text hover:text-light-text transition-colors duration-300 p-2" aria-label={`Ver carrinho com ${totalItems} itens`}>
+                <CartIcon className="w-6 h-6" />
+                {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-primary text-dark-bg text-xs font-bold">
+                        {totalItems}
+                    </span>
+                )}
+            </button>
           </nav>
           <div className="md:hidden flex items-center">
+             <button onClick={onCartClick} className="relative text-medium-text hover:text-light-text transition-colors duration-300 p-2 mr-2" aria-label={`Ver carrinho com ${totalItems} itens`}>
+                <CartIcon className="w-6 h-6" />
+                {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-primary text-dark-bg text-xs font-bold">
+                        {totalItems}
+                    </span>
+                )}
+            </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-medium-text hover:text-light-text focus:outline-none"

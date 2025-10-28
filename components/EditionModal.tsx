@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Edition } from '../types';
+import { useCart } from '../contexts/CartContext';
 
 interface EditionModalProps {
   edition: Edition | null;
@@ -7,8 +8,25 @@ interface EditionModalProps {
 }
 
 const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
+
   if (!edition) {
     return null;
+  }
+
+  const handleAddToCart = () => {
+    addToCart(edition, quantity);
+    setIsAdded(true);
+    setTimeout(() => {
+        setIsAdded(false);
+        onClose();
+    }, 1500);
+  };
+  
+  const handleQuantityChange = (delta: number) => {
+    setQuantity(prev => Math.max(1, Math.min(10, prev + delta)));
   }
 
   return (
@@ -37,7 +55,6 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
                 src={edition.coverImageUrl} 
                 alt={`Cover for ${edition.title}`} 
                 className="w-full h-auto object-cover aspect-[3/4] rounded-md"
-                // FIX: 'smooth' is not a valid value for the `imageRendering` property. Changed to 'auto' to resolve the TypeScript error.
                 style={{ imageRendering: 'auto' }}
               />
             </div>
@@ -47,11 +64,32 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
               <p className="text-medium-text text-lg mb-8 whitespace-pre-wrap">{edition.description}</p>
               
               {edition.status !== 'coming-soon' && (
-                <div className="mb-8">
-                  <div className="bg-dark-bg p-4 rounded-lg border border-gray-800">
+                <div className="mb-8 bg-dark-bg p-4 rounded-lg border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div>
                     <span className="text-3xl font-bold text-brand-primary font-mono">
                       R$ {edition.price.toFixed(2)}
                     </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <div className="flex items-center gap-2">
+                        <button 
+                          onClick={() => handleQuantityChange(-1)} 
+                          className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors"
+                        >-</button>
+                        <span className="w-12 h-10 flex items-center justify-center bg-dark-bg border border-gray-700 rounded-md font-bold text-lg">
+                          {quantity}
+                        </span>
+                        <button 
+                          onClick={() => handleQuantityChange(1)} 
+                          className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors"
+                        >+</button>
+                      </div>
+                      <button 
+                        onClick={handleAddToCart}
+                        className={`px-6 py-2 h-10 rounded-md font-bold text-dark-bg uppercase tracking-wider transition-colors duration-300 ${isAdded ? 'bg-green-500' : 'bg-brand-primary hover:bg-opacity-80'}`}
+                      >
+                       {isAdded ? 'Adicionado!' : 'Adicionar'}
+                      </button>
                   </div>
                 </div>
               )}
