@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
 import type { CartItem, Edition } from '../types';
 
-// This is the shipping cost per item. You can easily change this value.
-const SHIPPING_PER_ITEM = 3.00;
-
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (item: Edition, quantity: number) => void;
@@ -27,7 +24,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (existingItem) {
         return prevItems.map(i =>
           i.issue === item.issue
-            ? { ...i, quantity: i.quantity + quantity }
+            // Define a quantidade em vez de adicionar a ela.
+            ? { ...i, quantity: quantity }
             : i
         );
       }
@@ -58,7 +56,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { totalItems, subtotal, shippingCost, total } = useMemo(() => {
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const shippingCost = totalItems * SHIPPING_PER_ITEM;
+    
+    let shippingCost = 0;
+    if (totalItems > 0) {
+      const baseShipping = 10.00;
+      const additionalShippingPerItem = 5.00;
+      shippingCost = baseShipping + (totalItems - 1) * additionalShippingPerItem;
+    }
+
     const total = subtotal + shippingCost;
     return { totalItems, subtotal, shippingCost, total };
   }, [cartItems]);

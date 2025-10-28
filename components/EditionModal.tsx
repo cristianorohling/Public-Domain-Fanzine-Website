@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Edition } from '../types';
 import { useCart } from '../contexts/CartContext';
 
@@ -8,9 +8,21 @@ interface EditionModalProps {
 }
 
 const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    if (edition) {
+      const itemInCart = cartItems.find(item => item.issue === edition.issue);
+      // Se o item estiver no carrinho, mostrar a quantidade atual.
+      // Caso contrário, o padrão é 1 para um novo item.
+      setQuantity(itemInCart ? itemInCart.quantity : 1);
+      // Reinicia o estado de confirmação "Adicionado!".
+      setIsAdded(false);
+    }
+  }, [edition, cartItems]);
+
 
   if (!edition) {
     return null;

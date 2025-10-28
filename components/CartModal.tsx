@@ -6,8 +6,7 @@ interface CartModalProps {
   onClose: () => void;
 }
 
-const EMAIL_TO = "misterquadrinho@gmail.com";
-const WHATSAPP_NUMBER = "5581994276674";
+const WHATSAPP_NUMBER_DISPLAY = "(81) 99427-6674";
 
 const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
     const { cartItems, updateQuantity, subtotal, shippingCost, total, clearCart } = useCart();
@@ -160,7 +159,17 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                             
                             <div className="mt-8 p-4 bg-dark-bg rounded-lg border border-brand-secondary/50 text-center">
                                 <p className="font-bold text-light-text">
-                                    Após finalizar, realize o pagamento via PIX e envie o comprovante para o nosso WhatsApp: {WHATSAPP_NUMBER}.
+                                    Após finalizar, realize o pagamento via PIX e envie o comprovante para o nosso WhatsApp: {WHATSAPP_NUMBER_DISPLAY}.
+                                </p>
+                            </div>
+
+                            <div className="mt-8 p-4 bg-dark-bg rounded-lg border border-gray-700 text-sm text-medium-text">
+                                <h4 className="font-bold text-light-text mb-2">Sobre o processo de impressão e envio</h4>
+                                <p className="mb-2">
+                                    <strong>Nota:</strong> As revistas do Public Domain Fanzine são produzidas em sistema de impressão sob demanda, de forma quase artesanal. Isso significa que cada edição é impressa com cuidado, em tiragens pequenas, e o processo pode levar um pouco mais de tempo do que o de uma gráfica comercial tradicional.
+                                </p>
+                                <p>
+                                    Para manter a viabilidade do projeto, as impressões são realizadas em lotes, ou seja, aguardamos reunir um certo número de pedidos antes de enviar o material para produção. Dessa forma, conseguimos manter o preço acessível e a qualidade que o projeto merece.
                                 </p>
                             </div>
                              
