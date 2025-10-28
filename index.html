@@ -54,6 +54,25 @@
 </script>
 </head>
   <body class="bg-dark-bg text-light-text font-sans">
+    <!-- Netlify hidden form for order submission -->
+    <form name="order-form" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="order-form" />
+      <p class="hidden">
+        <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+      </p>
+      <textarea name="pedido"></textarea>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="whatsapp" />
+      <input type="text" name="address" />
+      <input type="text" name="number" />
+      <input type="text" name="complement" />
+      <input type="text" name="neighborhood" />
+      <input type="text" name="city" />
+      <input type="text" name="state" />
+      <input type="text" name="zip" />
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
