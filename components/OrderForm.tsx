@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { getEditions } from '../services/contentService';
 
@@ -44,19 +43,34 @@ const OrderForm: React.FC = () => {
         </div>
         <div className="max-w-3xl mx-auto bg-dark-bg p-8 rounded-lg border border-gray-800">
           <div className="space-y-6">
-            {editions.map(edition => (
-              <div key={edition.issue} className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-800 pb-4 last:border-b-0 last:pb-0">
-                <div className="flex-grow text-center sm:text-left">
-                  <h3 className="font-bold text-light-text">{edition.title.toUpperCase()} - #{String(edition.issue).padStart(2, '0')}</h3>
-                  <p className="text-brand-secondary font-mono">R$ {edition.price.toFixed(2)}</p>
+            {editions.map(edition => {
+              const isComingSoon = edition.status === 'coming-soon';
+              return (
+                <div key={edition.issue} className={`flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-800 pb-4 last:border-b-0 last:pb-0 ${isComingSoon ? 'opacity-50' : ''}`}>
+                  <div className="flex-grow text-center sm:text-left">
+                    <h3 className="font-bold text-light-text">{edition.title.toUpperCase()} - #{String(edition.issue).padStart(2, '0')}</h3>
+                    <p className="text-brand-secondary font-mono">
+                      {isComingSoon ? 'Em Breve!' : `R$ ${edition.price.toFixed(2)}`}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => handleQuantityChange(edition.issue, -1)} 
+                      className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isComingSoon || quantities[edition.issue] <= 0}
+                    >-</button>
+                    <span className="w-12 h-10 flex items-center justify-center bg-dark-bg border border-gray-700 rounded-md font-bold text-lg">
+                      {isComingSoon ? '—' : quantities[edition.issue]}
+                    </span>
+                    <button 
+                      onClick={() => handleQuantityChange(edition.issue, 1)} 
+                      className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isComingSoon || quantities[edition.issue] >= 10}
+                    >+</button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => handleQuantityChange(edition.issue, -1)} className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors">-</button>
-                  <span className="w-12 h-10 flex items-center justify-center bg-dark-bg border border-gray-700 rounded-md font-bold text-lg">{quantities[edition.issue]}</span>
-                  <button onClick={() => handleQuantityChange(edition.issue, 1)} className="w-10 h-10 bg-[#222] border border-gray-700 rounded-md font-bold text-xl hover:bg-gray-700 transition-colors">+</button>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           <div className="mt-8 border-t border-gray-800 pt-6">

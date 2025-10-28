@@ -1,11 +1,11 @@
 import React from 'react';
 
 // A simple SVG component for the WhatsApp icon to ensure brand recognition.
-const WhatsAppIcon: React.FC = () => (
+const WhatsAppIcon: React.FC<{className?: string}> = ({ className }) => (
     <svg
       role="img"
       aria-label="WhatsApp icon"
-      className="w-6 h-6 mr-3"
+      className={className}
       fill="currentColor"
       viewBox="0 0 24 24"
     >
@@ -13,16 +13,37 @@ const WhatsAppIcon: React.FC = () => (
     </svg>
 );
 
+const EmailIcon: React.FC = () => (
+    <svg
+      role="img"
+      aria-label="Email icon"
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+      ></path>
+    </svg>
+);
+
+
 const Contact: React.FC = () => {
-  const whatsappNumber = "5543991223034";
+  const whatsappNumber = "5581994276674";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
+  const emailAddress = "misterquadrinho@gmail.com";
 
   return (
     <section className="py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Contato</h2>
-          <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Quer tirar uma dúvida, fazer um pedido ou simplesmente bater um papo sobre quadrinhos? Chame no WhatsApp!</p>
+          <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Quer tirar uma dúvida, fazer um pedido ou simplesmente bater um papo sobre quadrinhos? Entre em contato conosco!</p>
         </div>
         <div className="max-w-md mx-auto text-center">
            <a
@@ -31,12 +52,23 @@ const Contact: React.FC = () => {
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-lg font-bold text-dark-bg bg-brand-primary uppercase tracking-widest rounded-md border-2 border-brand-primary transition-all duration-300 hover:bg-transparent hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg"
             >
-              <WhatsAppIcon />
+              <WhatsAppIcon className="w-6 h-6 mr-3" />
               Conversar no WhatsApp
             </a>
             <p className="mt-4 text-sm text-medium-text">
               Clique para abrir uma conversa direta. Rápido e fácil!
             </p>
+
+            <div className="mt-12 pt-8 border-t border-gray-800 space-y-4 font-mono text-medium-text">
+                <div className="flex items-center justify-center gap-4">
+                  <EmailIcon />
+                  <a href={`mailto:${emailAddress}`} className="hover:text-brand-secondary transition-colors">{emailAddress}</a>
+                </div>
+                <div className="flex items-center justify-center gap-4">
+                   <WhatsAppIcon className="w-6 h-6"/>
+                   <span>(81) 99427-6674</span>
+                </div>
+            </div>
         </div>
       </div>
     </section>

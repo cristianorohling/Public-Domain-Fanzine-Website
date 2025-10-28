@@ -6,6 +6,7 @@ export interface Edition {
   description: string;
   coverImageUrl: string;
   price: number;
+  status?: 'coming-soon';
   characterInfo: {
     name: string;
     description: string;

@@ -3,24 +3,38 @@ import type { Edition } from '../types';
 import { getEditions } from '../services/contentService';
 import EditionModal from './EditionModal';
 
-const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edition, onSelect }) => (
-  <button onClick={onSelect} className="group bg-[#1a1a1a] rounded-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out text-left w-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg">
-    <div className="p-4 pb-0">
-      <img 
-        src={edition.coverImageUrl} 
-        alt={`Cover for ${edition.title}`} 
-        className="w-full h-auto object-cover aspect-[3/4] rounded-md"
-        // FIX: 'smooth' is not a valid value for the `imageRendering` property. Changed to 'auto' to resolve the TypeScript error.
-        style={{ imageRendering: 'auto' }}
-      />
+const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edition, onSelect }) => {
+  const isComingSoon = edition.status === 'coming-soon';
+
+  return (
+    <div className="relative">
+      <button 
+        onClick={() => !isComingSoon && onSelect()}
+        disabled={isComingSoon}
+        className={`group bg-[#1a1a1a] rounded-lg overflow-hidden transform transition-transform duration-300 ease-in-out text-left w-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg ${isComingSoon ? 'cursor-not-allowed opacity-70' : 'hover:-translate-y-2'}`}
+      >
+        <div className="p-4 pb-0">
+          <img 
+            src={edition.coverImageUrl} 
+            alt={`Cover for ${edition.title}`} 
+            className="w-full h-auto object-cover aspect-[3/4] rounded-md"
+            style={{ imageRendering: 'auto' }}
+          />
+        </div>
+        <div className="p-6">
+          <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>
+          <h3 className="text-2xl font-bold mt-2 mb-3 text-light-text">{edition.title}</h3>
+          <p className="text-medium-text">{edition.excerpt}</p>
+        </div>
+      </button>
+      {isComingSoon && (
+        <div className="absolute top-8 -left-10 transform -rotate-45 bg-yellow-400 text-black font-bold uppercase tracking-wider px-12 py-1 text-center shadow-lg text-sm select-none pointer-events-none z-10">
+          Em Breve!
+        </div>
+      )}
     </div>
-    <div className="p-6">
-      <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>
-      <h3 className="text-2xl font-bold mt-2 mb-3 text-light-text">{edition.title}</h3>
-      <p className="text-medium-text">{edition.excerpt}</p>
-    </div>
-  </button>
-);
+  );
+};
 
 const Editions: React.FC = () => {
   const editions = getEditions();

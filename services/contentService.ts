@@ -107,7 +107,7 @@ Páginas: 32 • Colorido`,
     issue: 5,
     title: "Daredevil, Master of Courage",
     date: "Verão 2024",
-    excerpt: "Antes do homem sem medo, havia outro Demolidor. Esta edição celebra o mestre da coragem original e suas escapadas emocionantes.",
+    excerpt: "Antes do homem sem medo, havia outro Daredevil. Esta edição celebra o mestre da coragem original e suas escapadas emocionantes.",
     description: `Editores: Lancelott Martins & Cristiano Rohling
 Equipe de Produção: Rogério Prestes, Cristiano Rohling & Lancelott Martins
 Selo: The Old Man Comics
@@ -126,6 +126,31 @@ Páginas: 52 • Colorido`,
       }
     ]
   },
+  {
+    issue: 6,
+    title: "Stardust the Super Wizard",
+    date: "Outono 2024",
+    status: "coming-soon",
+    excerpt: "Viaje pelo cosmos com Stardust, o Super Mago, um dos seres mais poderosos e bizarros da Era de Ouro.",
+    description: `Editor: Cristiano Rohling
+Equipe de Produção: Rogério Prestes & Lancelott Martins
+Selo: The Old Man Comics
+
+Uma das criações mais singulares e psicodélicas da Era de Ouro, Stardust desafia qualquer categorização.
+Scans originários da CBP Plus Comic Book+ e Digital Comic Museum.
+
+Formato: Americano (18 x 26 cm)
+Páginas: 36 • Colorido`,
+    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_06.png",
+    price: 24.00,
+    characterInfo: [
+      {
+        name: "Stardust the Super Wizard",
+        description: "Criado pelo enigmático Fletcher Hanks e publicado em Fantastic Comics #01 (1939). Stardust é um ser de poder quase ilimitado que viaja pelo espaço combatendo o mal de formas surreais e muitas vezes aterrorizantes. Um verdadeiro ícone do bizarro na Era de Ouro.",
+        imageUrl: "https://picsum.photos/seed/stardust/400/400"
+      }
+    ]
+  },
 ];
 
 export const getTeam = (): TeamMember[] => [
@@ -137,7 +162,7 @@ export const getTeam = (): TeamMember[] => [
     },
     {
         name: "Rogério Prestes",
-        role: "Responsavel Grafico",
+        role: "Editor & Responsável Gráfico",
         bio: "Rogério Prestes, natural de Jaguariaíva (PR) e residente em Caruaru (PE) desde 1995, é artista gráfico, professor de inglês e artista plástico. Recebeu o Título de Cidadão de Caruaru e integra o Ateliê Cidade, onde atua em projetos culturais e artísticos. Em 2003, lançou com Quannar Nilson a revista Epopéia – A História do Brasil em Quadrinhos, reunindo arte e narrativa histórica em uma obra marcante do quadrinho nacional.",
         avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_rogerio.png"
     },
@@ -162,7 +187,7 @@ export const getBlogPosts = (): BlogPost[] => [
     {
         id: 1,
         title: "Os bastidores da edição #5: Daredevil",
-        excerpt: "Um mergulho profundo no processo de restauração e pesquisa para trazer de volta o Demolidor da Era de Ouro. Desafios, descobertas e a paixão por trás de cada página.",
+        excerpt: "Um mergulho profundo no processo de restauração e pesquisa para trazer de volta o Daredevil da Era de Ouro. Desafios, descobertas e a paixão por trás de cada página.",
         author: "Lancelott Martins",
         date: "15 de Julho, 2024",
         link: "#" // Placeholder link
