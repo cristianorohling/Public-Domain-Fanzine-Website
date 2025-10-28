@@ -10,18 +10,10 @@ export const getEditions = (): Edition[] => [
     issue: 1,
     title: "The Black Orchid",
     date: "Verão 2023",
-    excerpt: "Explorando as origens e aventuras misteriosas da Orquídea Negra, uma heroína clássica da era de ouro dos quadrinhos.",
-    description: `Editor desta edição: Lancelott Martins
-Equipe de Produção: Rogério Prestes & Cristiano Rohling
-Selo: The Old Man Comics
-
-Série documental em formato de fanzine, com o propósito de preservar e pesquisar a memória dos comics em domínio público, especialmente os norte-americanos, publicados ou não em periódicos brasileiros do passado.
-Todos os scans foram obtidos via CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 44 • Colorido`,
+    excerpt: "A estreia da coleção apresenta The Black Orchid, heroína misteriosa e elegante criada por Albert e Florence Magarian, publicada originalmente em Tops Comics #1 (1944).",
+    description: `A estreia da coleção apresenta The Black Orchid, heroína misteriosa e elegante criada por Albert e Florence Magarian, publicada originalmente em Tops Comics #1 (1944). Vestida com um casaco longo e uma máscara negra, ela combate o crime com um anel em forma de orquídea que libera uma essência letal. Glamour, mistério e justiça se misturam nesta raridade da Golden Age, agora restaurada e preservada pelo selo The Old Man Comics.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_01.png",
-    price: 24.00,
+    price: 22.00,
     characterInfo: [
       {
         name: "The Black Orchid",
@@ -34,19 +26,10 @@ Páginas: 44 • Colorido`,
     issue: 2,
     title: "Thor, God of Thunder",
     date: "Outono 2023",
-    excerpt: "Um mergulho profundo na versão em domínio público do Deus do Trovão, traçando suas raízes mitológicas e seu legado nos quadrinhos.",
-    description: `Editor: Lancelott Martins
-Equipe de Produção: Rogério Prestes & Cristiano Rohling
-Selo: The Old Man Comics
-
-Série documental em formato de fanzine, dedicada à preservação e estudo dos comics em domínio público, com foco em personagens norte-americanos da Era de Ouro.
-Sem registros de publicação no Brasil.
-Scans originários da CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 32 • Colorido`,
+    excerpt: "Antes da versão famosa da Marvel, existiu o verdadeiro Thor God of Thunder, criado por Pierce George Rice para Weird Comics #1 (Fox Comics, 1940).",
+    description: `Antes da versão famosa da Marvel, existiu o verdadeiro Thor God of Thunder, criado por Pierce George Rice para Weird Comics #1 (Fox Comics, 1940)*. O herói era o mortal Grant Farrel, que recebia o poder do deus nórdico para lutar contra o mal durante a Segunda Guerra Mundial. Um clássico esquecido da Golden Age que retorna com toda sua força mítica em edição especial de arquivo histórico.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 44 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_02.png",
-    price: 22.00,
+    price: 24.00,
     characterInfo: [
       {
         name: "Thor",
@@ -59,16 +42,8 @@ Páginas: 32 • Colorido`,
     issue: 3,
     title: "Bob Phantom",
     date: "Inverno 2024",
-    excerpt: "Desvendando os segredos de Bob Phantom, o detetive fantasma. Uma edição dedicada aos investigadores sobrenaturais do passado.",
-    description: `Editor: Lancelott Martins
-Equipe de Produção: Rogério Prestes & Cristiano Rohling
-Selo: The Old Man Comics
-
-Houve publicações no Brasil, mas raras.
-Scans originários da CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 32 • Colorido`,
+    excerpt: "Criado por Harry Shorten e Irv Novick para Blue Ribbon Comics #2 (1939), Bob Phantom é um dos primeiros vigilantes mascarados dos quadrinhos.",
+    description: `Criado por Harry Shorten e Irv Novick para Blue Ribbon Comics #2 (1939), Bob Phantom é um dos primeiros vigilantes mascarados dos quadrinhos. Jornalista audacioso e combatente incansável do crime, ele antecipa conceitos de mutação e teletransporte décadas antes da era moderna dos super-heróis. Um ícone pioneiro da MJL/Archie Comics, redescoberto e revitalizado nesta edição histórica.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_03.png",
     price: 22.00,
     characterInfo: [
@@ -83,16 +58,8 @@ Páginas: 32 • Colorido`,
     issue: 4,
     title: "Mysta of the Moon",
     date: "Primavera 2024",
-    excerpt: "Uma jornada ao cosmos com Mysta da Lua, a rainha do desconhecido cósmico. Uma celebração das heroínas de ficção científica.",
-    description: `Editor: Cristiano Rohling
-Equipe de Produção: Rogério Prestes, Cristiano Rohling & Lancelott Martins
-Selo: The Old Man Comics
-
-Foi publicada no Brasil pela revista O GURI (suplemento do Diário da Noite) a partir de junho de 1948.
-Scans obtidos via CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 32 • Colorido`,
+    excerpt: "Criação de Ross Gallun e Joe Doolin, Mysta of the Moon é uma das primeiras heroínas da ficção científica nos quadrinhos.",
+    description: `Criação de Ross Gallun e Joe Doolin, publicada em Planet Comics #35 (Fiction House, 1945)*, Mysta of the Moon é uma das primeiras heroínas da ficção científica nos quadrinhos. Brilhante cientista e estrategista, ela enfrenta inimigos espaciais com inteligência, armas futuristas e até um robô controlado por telepatia. Publicada no Brasil em O Guri (1948), Mysta retorna em uma edição que celebra a força e o engenho feminino da Golden Age.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_04.png",
     price: 24.00,
     characterInfo: [
@@ -107,15 +74,8 @@ Páginas: 32 • Colorido`,
     issue: 5,
     title: "Daredevil, Master of Courage",
     date: "Verão 2024",
-    excerpt: "Antes do homem sem medo, havia outro Daredevil. Esta edição celebra o mestre da coragem original e suas escapadas emocionantes.",
-    description: `Editores: Lancelott Martins & Cristiano Rohling
-Equipe de Produção: Rogério Prestes, Cristiano Rohling & Lancelott Martins
-Selo: The Old Man Comics
-
-Scans originários da CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 52 • Colorido`,
+    excerpt: "Criado por Don Rico e Jack Binder, Daredevil, Master of Courage se tornou um símbolo de bravura e resistência na Golden Age.",
+    description: `Criado por Don Rico e Jack Binder, e reformulado por Charles Biro, Daredevil, Master of Courage estreou em Silver Streak Comics #6 (1940)* e se tornou um símbolo de bravura e resistência. Mudo após tragédias pessoais, o herói supera suas limitações e se transforma em um vigilante implacável, mestre no uso do bumerangue. Uma raridade da Golden Age, restaurada com fidelidade e apresentada em sua forma mais pura.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 52 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_05.png",
     price: 25.00,
     characterInfo: [
@@ -131,16 +91,8 @@ Páginas: 52 • Colorido`,
     title: "Stardust the Super Wizard",
     date: "Outono 2024",
     status: "coming-soon",
-    excerpt: "Viaje pelo cosmos com Stardust, o Super Mago, um dos seres mais poderosos e bizarros da Era de Ouro.",
-    description: `Editor: Cristiano Rohling
-Equipe de Produção: Rogério Prestes & Lancelott Martins
-Selo: The Old Man Comics
-
-Uma das criações mais singulares e psicodélicas da Era de Ouro, Stardust desafia qualquer categorização.
-Scans originários da CBP Plus Comic Book+ e Digital Comic Museum.
-
-Formato: Americano (18 x 26 cm)
-Páginas: 36 • Colorido`,
+    excerpt: "Criado pelo excêntrico Fletcher Hanks, Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro.",
+    description: `Criado pelo excêntrico Fletcher Hanks e publicado pela Fox Feature Syndicate em Fantastic Comics #1 (1939)*, Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro. Um ser cósmico que observa a Terra e pune criminosos com raios científicos e castigos surreais, Stardust é o retrato de um herói distorcido — um deus vingador da imaginação de Hanks. Uma obra-prima bizarra e visionária, agora resgatada na coleção Public Domain Fanzine.\n\nFormato: Americano (18 x 26 cm)`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_06.png",
     price: 24.00,
     characterInfo: [

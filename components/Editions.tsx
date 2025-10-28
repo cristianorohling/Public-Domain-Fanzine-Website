@@ -9,9 +9,8 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
   return (
     <div className="relative">
       <button 
-        onClick={() => !isComingSoon && onSelect()}
-        disabled={isComingSoon}
-        className={`group bg-[#1a1a1a] rounded-lg overflow-hidden transform transition-transform duration-300 ease-in-out text-left w-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg ${isComingSoon ? 'cursor-not-allowed opacity-70' : 'hover:-translate-y-2'}`}
+        onClick={onSelect}
+        className={`group bg-[#1a1a1a] rounded-lg overflow-hidden transform transition-transform duration-300 ease-in-out text-left w-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg hover:-translate-y-2 ${isComingSoon ? 'opacity-70' : ''}`}
       >
         <div className="p-4 pb-0">
           <img 
