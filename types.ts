@@ -19,6 +19,7 @@ export interface TeamMember {
   role: string;
   bio: string;
   avatarUrl: string;
+  instagram?: string;
 }
 
 export interface Wallpaper {

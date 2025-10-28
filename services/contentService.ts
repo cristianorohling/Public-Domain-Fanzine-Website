@@ -110,19 +110,22 @@ export const getTeam = (): TeamMember[] => [
         name: "Lancelott Martins",
         role: "Editor & Fundador",
         bio: "Lancelott Martins (nascido em 1958, em Parnaíba – PI) é desenhista, roteirista, diagramador, tradutor, web-editor e pesquisador de quadrinhos. Oriundo do movimento dos fanzines dos anos 1980, criou personagens como Exú, Sete Estrelas e Catalogador, este último liberado para uso livre por outros artistas. Atualmente, publica a obra Catálogo de Heróis Brasileiros, resultado de uma pesquisa de dez anos que documenta personagens nacionais desde o início do século XX. É reconhecido como uma das figuras mais importantes na preservação e valorização dos quadrinhos brasileiros.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_lancelott.png"
+        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_lancelott.png",
+        instagram: "@lancelottmartins"
     },
     {
         name: "Rogério Prestes",
         role: "Editor & Responsável Gráfico",
         bio: "Rogério Prestes, natural de Jaguariaíva (PR) e residente em Caruaru (PE) desde 1995, é artista gráfico, professor de inglês e artista plástico. Recebeu o Título de Cidadão de Caruaru e integra o Ateliê Cidade, onde atua em projetos culturais e artísticos. Em 2003, lançou com Quannar Nilson a revista Epopéia – A História do Brasil em Quadrinhos, reunindo arte e narrativa histórica em uma obra marcante do quadrinho nacional.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_rogerio.png"
+        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_rogerio.png",
+        instagram: "@prestes310"
     },
     {
         name: "Cristiano Rohling",
         role: "Editor & Tradutor",
         bio: "Cristiano Roberto Rohling, nascido em Umuarama (PR), é formado em Jornalismo (UEL) e Processamento de Dados (Unifil). Atua como tradutor amador e pesquisador de quadrinhos da Era de Ouro, com interesse especial em obras de ficção científica e fantasia. Entre suas traduções estão A Cotovia do Espaço, de E. E. Smith, e O Reino das Sombras, de Robert E. Howard, ambas disponíveis na Amazon.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_cristiano.png"
+        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_cristiano.png",
+        instagram: "@cristiano.rohling"
     }
 ];
 

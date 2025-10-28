@@ -9,6 +9,9 @@ const TeamMemberCard: React.FC<{ member: TeamMember; onSelect: () => void }> = (
     <img className="mx-auto h-32 w-32 rounded-full object-cover border-4 border-gray-800 group-hover:border-brand-secondary transition-colors duration-300" src={member.avatarUrl} alt={member.name} />
     <h3 className="mt-6 text-xl font-bold text-light-text">{member.name}</h3>
     <p className="text-brand-secondary font-mono">{member.role}</p>
+    {member.instagram && (
+        <p className="text-sm text-medium-text mt-1">{member.instagram}</p>
+    )}
   </button>
 );
 
