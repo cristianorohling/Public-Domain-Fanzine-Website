@@ -48,15 +48,10 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
               
               {edition.status !== 'coming-soon' && (
                 <div className="mb-8">
-                  <div className="flex items-center gap-4 bg-dark-bg p-4 rounded-lg border border-gray-800">
-                    <span className="text-3xl font-bold text-brand-primary font-mono flex-shrink-0">
+                  <div className="bg-dark-bg p-4 rounded-lg border border-gray-800">
+                    <span className="text-3xl font-bold text-brand-primary font-mono">
                       R$ {edition.price.toFixed(2)}
                     </span>
-                    <button
-                      className="w-full bg-brand-primary text-dark-bg font-bold py-3 px-8 rounded-md text-md uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-[#1a1a1a]"
-                    >
-                      Comprar
-                    </button>
                   </div>
                 </div>
               )}

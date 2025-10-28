@@ -12,7 +12,7 @@ export const getEditions = (): Edition[] => [
     date: "Verão 2023",
     excerpt: "A estreia da coleção apresenta The Black Orchid, heroína misteriosa e elegante criada por Albert e Florence Magarian, publicada originalmente em Tops Comics #1 (1944).",
     description: `A estreia da coleção apresenta The Black Orchid, heroína misteriosa e elegante criada por Albert e Florence Magarian, publicada originalmente em Tops Comics #1 (1944). Vestida com um casaco longo e uma máscara negra, ela combate o crime com um anel em forma de orquídea que libera uma essência letal. Glamour, mistério e justiça se misturam nesta raridade da Golden Age, agora restaurada e preservada pelo selo The Old Man Comics.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_01.png",
+    coverImageUrl: "/img/ed_01.png",
     price: 22.00,
     characterInfo: [
       {
@@ -28,7 +28,7 @@ export const getEditions = (): Edition[] => [
     date: "Outono 2023",
     excerpt: "Antes da versão famosa da Marvel, existiu o verdadeiro Thor God of Thunder, criado por Pierce George Rice para Weird Comics #1 (Fox Comics, 1940).",
     description: `Antes da versão famosa da Marvel, existiu o verdadeiro Thor God of Thunder, criado por Pierce George Rice para Weird Comics #1 (Fox Comics, 1940)*. O herói era o mortal Grant Farrel, que recebia o poder do deus nórdico para lutar contra o mal durante a Segunda Guerra Mundial. Um clássico esquecido da Golden Age que retorna com toda sua força mítica em edição especial de arquivo histórico.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 44 • Colorido`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_02.png",
+    coverImageUrl: "/img/ed_02.png",
     price: 24.00,
     characterInfo: [
       {
@@ -44,7 +44,7 @@ export const getEditions = (): Edition[] => [
     date: "Inverno 2024",
     excerpt: "Criado por Harry Shorten e Irv Novick para Blue Ribbon Comics #2 (1939), Bob Phantom é um dos primeiros vigilantes mascarados dos quadrinhos.",
     description: `Criado por Harry Shorten e Irv Novick para Blue Ribbon Comics #2 (1939), Bob Phantom é um dos primeiros vigilantes mascarados dos quadrinhos. Jornalista audacioso e combatente incansável do crime, ele antecipa conceitos de mutação e teletransporte décadas antes da era moderna dos super-heróis. Um ícone pioneiro da MJL/Archie Comics, redescoberto e revitalizado nesta edição histórica.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_03.png",
+    coverImageUrl: "/img/ed_03.png",
     price: 22.00,
     characterInfo: [
       {
@@ -60,7 +60,7 @@ export const getEditions = (): Edition[] => [
     date: "Primavera 2024",
     excerpt: "Criação de Ross Gallun e Joe Doolin, Mysta of the Moon é uma das primeiras heroínas da ficção científica nos quadrinhos.",
     description: `Criação de Ross Gallun e Joe Doolin, publicada em Planet Comics #35 (Fiction House, 1945)*, Mysta of the Moon é uma das primeiras heroínas da ficção científica nos quadrinhos. Brilhante cientista e estrategista, ela enfrenta inimigos espaciais com inteligência, armas futuristas e até um robô controlado por telepatia. Publicada no Brasil em O Guri (1948), Mysta retorna em uma edição que celebra a força e o engenho feminino da Golden Age.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_04.png",
+    coverImageUrl: "/img/ed_04.png",
     price: 24.00,
     characterInfo: [
       {
@@ -76,7 +76,7 @@ export const getEditions = (): Edition[] => [
     date: "Verão 2024",
     excerpt: "Criado por Don Rico e Jack Binder, Daredevil, Master of Courage se tornou um símbolo de bravura e resistência na Golden Age.",
     description: `Criado por Don Rico e Jack Binder, e reformulado por Charles Biro, Daredevil, Master of Courage estreou em Silver Streak Comics #6 (1940)* e se tornou um símbolo de bravura e resistência. Mudo após tragédias pessoais, o herói supera suas limitações e se transforma em um vigilante implacável, mestre no uso do bumerangue. Uma raridade da Golden Age, restaurada com fidelidade e apresentada em sua forma mais pura.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 52 • Colorido`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_05.png",
+    coverImageUrl: "/img/ed_05.png",
     price: 25.00,
     characterInfo: [
       {
@@ -93,7 +93,7 @@ export const getEditions = (): Edition[] => [
     status: "coming-soon",
     excerpt: "Criado pelo excêntrico Fletcher Hanks, Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro.",
     description: `Criado pelo excêntrico Fletcher Hanks e publicado pela Fox Feature Syndicate em Fantastic Comics #1 (1939)*, Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro. Um ser cósmico que observa a Terra e pune criminosos com raios científicos e castigos surreais, Stardust é o retrato de um herói distorcido — um deus vingador da imaginação de Hanks. Uma obra-prima bizarra e visionária, agora resgatada na coleção Public Domain Fanzine.\n\nFormato: Americano (18 x 26 cm)`,
-    coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_06.png",
+    coverImageUrl: "/img/ed_06.png",
     price: 24.00,
     characterInfo: [
       {
@@ -110,31 +110,31 @@ export const getTeam = (): TeamMember[] => [
         name: "Lancelott Martins",
         role: "Editor & Fundador",
         bio: "Lancelott Martins (nascido em 1958, em Parnaíba – PI) é desenhista, roteirista, diagramador, tradutor, web-editor e pesquisador de quadrinhos. Oriundo do movimento dos fanzines dos anos 1980, criou personagens como Exú, Sete Estrelas e Catalogador, este último liberado para uso livre por outros artistas. Atualmente, publica a obra Catálogo de Heróis Brasileiros, resultado de uma pesquisa de dez anos que documenta personagens nacionais desde o início do século XX. É reconhecido como uma das figuras mais importantes na preservação e valorização dos quadrinhos brasileiros.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_lancelott.png",
+        avatarUrl: "/img/exp_lancelott.png",
         instagram: "@lancelottmartins"
     },
     {
         name: "Rogério Prestes",
         role: "Editor & Responsável Gráfico",
         bio: "Rogério Prestes, natural de Jaguariaíva (PR) e residente em Caruaru (PE) desde 1995, é artista gráfico, professor de inglês e artista plástico. Recebeu o Título de Cidadão de Caruaru e integra o Ateliê Cidade, onde atua em projetos culturais e artísticos. Em 2003, lançou com Quannar Nilson a revista Epopéia – A História do Brasil em Quadrinhos, reunindo arte e narrativa histórica em uma obra marcante do quadrinho nacional.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_rogerio.png",
+        avatarUrl: "/img/exp_rogerio.png",
         instagram: "@prestes310"
     },
     {
         name: "Cristiano Rohling",
         role: "Editor & Tradutor",
         bio: "Cristiano Roberto Rohling, nascido em Umuarama (PR), é formado em Jornalismo (UEL) e Processamento de Dados (Unifil). Atua como tradutor amador e pesquisador de quadrinhos da Era de Ouro, com interesse especial em obras de ficção científica e fantasia. Entre suas traduções estão A Cotovia do Espaço, de E. E. Smith, e O Reino das Sombras, de Robert E. Howard, ambas disponíveis na Amazon.",
-        avatarUrl: "https://publicdomainfanzine.puter.site/img/exp_cristiano.png",
+        avatarUrl: "/img/exp_cristiano.png",
         instagram: "@cristiano.rohling"
     }
 ];
 
 export const getWallpapers = (): Wallpaper[] => [
-    { id: 1, title: "Daredevil", imageUrl: "https://publicdomainfanzine.puter.site/wp/Daredevil.png" },
-    { id: 2, title: "Lady Luck", imageUrl: "https://publicdomainfanzine.puter.site/wp/Lady_Luck.png" },
-    { id: 3, title: "Mysta of the Moon", imageUrl: "https://publicdomainfanzine.puter.site/wp/Mysta.png" },
-    { id: 4, title: "Public Domain Fanzine", imageUrl: "https://publicdomainfanzine.puter.site/wp/pdf.png" },
-    { id: 5, title: "Wildfire", imageUrl: "https://publicdomainfanzine.puter.site/wp/Wildfire.png" },
+    { id: 1, title: "Daredevil", imageUrl: "/wp/Daredevil.png" },
+    { id: 2, title: "Lady Luck", imageUrl: "/wp/Lady_Luck.png" },
+    { id: 3, title: "Mysta of the Moon", imageUrl: "/wp/Mysta.png" },
+    { id: 4, title: "Public Domain Fanzine", imageUrl: "/wp/pdf.png" },
+    { id: 5, title: "Wildfire", imageUrl: "/wp/Wildfire.png" },
 ];
 
 // FIX: Added missing getBlogPosts function.
@@ -170,18 +170,18 @@ export const getTracks = (): Track[] => [
     id: 1,
     title: "Mysta, a Deusa da Lua",
     artist: "Mysta & The Robots",
-    url: "https://publicdomainfanzine.puter.site/mp3/Mysta.mp3"
+    url: "/mp3/Mysta.mp3"
   },
   {
     id: 2,
     title: "Stardust, the Super Wizard",
     artist: "The Bengala Boys",
-    url: "https://publicdomainfanzine.puter.site/mp3/Stardust.mp3"
+    url: "/mp3/Stardust.mp3"
   },
   {
     id: 3,
     title: "Stardust Rap",
     artist: "MC Hanks",
-    url: "https://publicdomainfanzine.puter.site/mp3/Stardust_creepy.mp3"
+    url: "/mp3/Stardust_creepy.mp3"
   }
 ];
