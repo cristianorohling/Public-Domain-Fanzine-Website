@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       ></div>
       <div className="relative z-10 p-4">
         <img 
-          src="/img/logo.png" 
+          src="https://publicdomainfanzine.puter.site/img/logo.png" 
           alt="Public Domain Fanzine Logo" 
           className="w-full max-w-[700px] mx-auto mb-8" 
         />
