@@ -1,5 +1,5 @@
 // FIX: Added BlogPost to import to resolve missing member error.
-import type { Edition, TeamMember, Wallpaper, BlogPost } from '../types';
+import type { Edition, TeamMember, Wallpaper, BlogPost, Track } from '../types';
 
 // In a real application, you could use the Gemini API to generate this content dynamically.
 // Example prompt for editions: "Generate 5 fictional magazine editions for 'Public Domain Fanzine' based on these titles: The Black Orchid, Thor God of Thunder, Bob Phantom, Mysta of the Moon, Daredevil Master of Courage. Each should have an issue number, a title, a publication date, a short description, a price, character info (name, description, imageURL), and a cover image URL from picsum.photos."
@@ -163,4 +163,25 @@ export const getBlogPosts = (): BlogPost[] => [
         date: "21 de Junho, 2024",
         link: "#"
     }
+];
+
+export const getTracks = (): Track[] => [
+  {
+    id: 1,
+    title: "Mysta, a Deusa da Lua",
+    artist: "Mysta & The Robots",
+    url: "https://publicdomainfanzine.puter.site/mp3/Mysta.mp3"
+  },
+  {
+    id: 2,
+    title: "Stardust, the Super Wizard",
+    artist: "The Bengala Boys",
+    url: "https://publicdomainfanzine.puter.site/mp3/Stardust.mp3"
+  },
+  {
+    id: 3,
+    title: "Stardust Rap",
+    artist: "MC Hanks",
+    url: "https://publicdomainfanzine.puter.site/mp3/Stardust_creepy.mp3"
+  }
 ];

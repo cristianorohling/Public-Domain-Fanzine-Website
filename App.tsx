@@ -7,6 +7,7 @@ import Wallpapers from './components/Wallpapers';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import About from './components/About';
+import MusicPlayer from './components/MusicPlayer';
 
 const App: React.FC = () => {
   const sections = {
@@ -44,6 +45,7 @@ const App: React.FC = () => {
         </div>
       </main>
       <Footer />
+      <MusicPlayer />
     </div>
   );
 };
