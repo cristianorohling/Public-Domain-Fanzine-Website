@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
 
@@ -158,11 +159,22 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
             <StepHeader title="Seu Carrinho" step={1} total={4} />
             <div className="space-y-4 mb-6">
                 {cartItems.map(item => (
-                    <div key={item.issue} className="flex items-center gap-4 border-b border-gray-800 pb-4 last:border-b-0">
-                        <img src={item.coverImageUrl} alt={item.title} className="w-16 h-20 object-cover rounded-md" />
-                        <div className="flex-grow"><p className="font-bold text-light-text">{item.title}</p><p className="text-sm text-medium-text">R$ {item.price.toFixed(2)}</p></div>
-                        <div className="flex items-center gap-1"><button type="button" onClick={() => updateQuantity(item.issue, item.quantity - 1)} className="w-8 h-8 bg-[#222] rounded">-</button><span className="w-10 text-center font-bold">{item.quantity}</span><button type="button" onClick={() => updateQuantity(item.issue, item.quantity + 1)} className="w-8 h-8 bg-[#222] rounded">+</button></div>
-                        <p className="w-20 text-right font-bold text-brand-secondary">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                    <div key={item.issue} className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2 gap-x-4 border-b border-gray-800 pb-4 last:border-b-0">
+                        <div className="flex items-center gap-4">
+                            <img src={item.coverImageUrl} alt={item.title} className="w-16 h-20 object-cover rounded-md flex-shrink-0" />
+                            <div>
+                                <p className="font-bold text-light-text">{item.title}</p>
+                                <p className="text-sm text-medium-text">R$ {item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 w-full sm:w-auto justify-end">
+                            <div className="flex items-center gap-1">
+                                <button type="button" onClick={() => updateQuantity(item.issue, item.quantity - 1)} className="w-8 h-8 bg-[#222] rounded">-</button>
+                                <span className="w-10 text-center font-bold">{item.quantity}</span>
+                                <button type="button" onClick={() => updateQuantity(item.issue, item.quantity + 1)} className="w-8 h-8 bg-[#222] rounded">+</button>
+                            </div>
+                            <p className="w-20 text-right font-bold text-brand-secondary">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -175,16 +187,16 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
         <>
             <StepHeader title="Informações de Entrega" step={2} total={4} />
             <p className="text-sm text-medium-text mb-4 text-center -mt-4">Por enquanto, não enviamos para fora do Brasil.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FormInput className="col-span-2" name="name" placeholder="Nome Completo" value={formState.name} onChange={handleFormChange} error={formErrors.name} />
-                <FormInput name="email" placeholder="Seu E-mail" type="email" value={formState.email} onChange={handleFormChange} error={formErrors.email} />
-                <FormInput name="whatsapp" placeholder="WhatsApp (XX) XXXXX-XXXX" type="tel" value={formState.whatsapp} onChange={handleFormChange} error={formErrors.whatsapp} maxLength={15} />
-                <FormInput className="col-span-2" name="address" placeholder="Endereço" value={formState.address} onChange={handleFormChange} error={formErrors.address} />
-                <FormInput name="number" placeholder="Número" value={formState.number} onChange={handleFormChange} error={formErrors.number} />
-                <FormInput name="complement" placeholder="Complemento (Opcional)" value={formState.complement} onChange={handleFormChange} required={false} />
-                <FormInput name="neighborhood" placeholder="Bairro" value={formState.neighborhood} onChange={handleFormChange} error={formErrors.neighborhood} />
-                <FormInput name="city" placeholder="Cidade" value={formState.city} onChange={handleFormChange} error={formErrors.city} />
-                 <div>
+            <div className="grid grid-cols-1 sm:grid-cols-6 gap-4">
+                <FormInput className="sm:col-span-6" name="name" placeholder="Nome Completo" value={formState.name} onChange={handleFormChange} error={formErrors.name} />
+                <FormInput className="sm:col-span-6" name="email" placeholder="Seu E-mail" type="email" value={formState.email} onChange={handleFormChange} error={formErrors.email} />
+                <FormInput className="sm:col-span-6" name="whatsapp" placeholder="WhatsApp (XX) XXXXX-XXXX" type="tel" value={formState.whatsapp} onChange={handleFormChange} error={formErrors.whatsapp} maxLength={15} />
+                <FormInput className="sm:col-span-6" name="address" placeholder="Endereço" value={formState.address} onChange={handleFormChange} error={formErrors.address} />
+                <FormInput className="sm:col-span-2" name="number" placeholder="Número" value={formState.number} onChange={handleFormChange} error={formErrors.number} />
+                <FormInput className="sm:col-span-4" name="complement" placeholder="Complemento (Opcional)" value={formState.complement} onChange={handleFormChange} required={false} />
+                <FormInput className="sm:col-span-6" name="neighborhood" placeholder="Bairro" value={formState.neighborhood} onChange={handleFormChange} error={formErrors.neighborhood} />
+                <FormInput className="sm:col-span-3" name="city" placeholder="Cidade" value={formState.city} onChange={handleFormChange} error={formErrors.city} />
+                 <div className="sm:col-span-1">
                     <select
                         required
                         name="state"
@@ -192,12 +204,12 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                         onChange={handleFormChange}
                         className={`bg-dark-bg border ${formErrors.state ? 'border-red-500' : 'border-gray-700'} rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-brand-primary h-[42px]`}
                     >
-                        <option value="">Selecione o Estado</option>
+                        <option value="">UF</option>
                         {brazilianStates.map(uf => <option key={uf} value={uf}>{uf}</option>)}
                     </select>
                     {formErrors.state && <p className="text-red-500 text-xs mt-1">{formErrors.state}</p>}
                 </div>
-                <FormInput name="zip" placeholder="CEP" value={formState.zip} onChange={handleFormChange} error={formErrors.zip} maxLength={9} />
+                <FormInput className="sm:col-span-2" name="zip" placeholder="CEP" value={formState.zip} onChange={handleFormChange} error={formErrors.zip} maxLength={9} />
             </div>
             <div className="flex justify-between mt-8"><button type="button" onClick={() => setStep('cart')} className="bg-gray-700 text-light-text font-bold py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-gray-600">&laquo; Voltar</button><button type="button" onClick={handleNextFromDetails} className="bg-brand-primary text-dark-bg font-bold py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-opacity-80">Próximo &raquo;</button></div>
         </>
@@ -239,7 +251,10 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     <p>Por isso, é <span className="font-bold text-brand-primary">essencial</span> que você nos avise por WhatsApp ou e-mail após efetivar o pedido e nos envie o comprovante. Adoramos trocar uma ideia com nossos leitores! Agradecemos sua compreensão e apoio.</p>
                 </div>
                 
-                 <div className="flex justify-between items-center text-sm mb-4"><button onClick={() => setStep('cart')} className="text-brand-secondary hover:underline">Editar Pedido</button><button onClick={() => setStep('details')} className="text-brand-secondary hover:underline">Editar Endereço</button></div>
+                 <div className="flex flex-col sm:flex-row justify-between items-center text-sm mb-4 gap-2">
+                    <button onClick={() => setStep('cart')} className="text-brand-secondary hover:underline">Editar Pedido</button>
+                    <button onClick={() => setStep('details')} className="text-brand-secondary hover:underline">Editar Endereço</button>
+                 </div>
                  {submissionError && (<p className="my-4 text-center text-red-500">{submissionError}</p>)}
                 <button onClick={handlePlaceOrder} disabled={isSubmitting} className="w-full bg-brand-secondary text-dark-bg font-bold py-3 px-6 rounded-md text-lg uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-wait">{isSubmitting ? 'Enviando...' : 'Efetivar Pedido'}</button>
             </div>
