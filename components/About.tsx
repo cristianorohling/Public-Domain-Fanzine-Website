@@ -11,8 +11,11 @@ const About: React.FC = () => {
         </div>
         <div className="max-w-4xl mx-auto text-lg text-medium-text space-y-6 text-left md:text-justify leading-relaxed">
           <p>
-            O Public Domain Fanzine é um projeto editorial independente dedicado à preservação e pesquisa da memória dos quadrinhos em domínio público, especialmente os publicados nos Estados Unidos durante a Era de Ouro (1938–1956). O projeto ganhou forma quando Cristiano Rohling, tradutor e pesquisador de Londrina (PR), passou a colaborar com Lancelott Martins, desenhista e estudioso de Parnaíba (PI), conhecido por seu trabalho sobre super-heróis brasileiros. Junto de Rogério Prestes, de Caruaru (PE), eles formam a equipe principal, responsável por traduções, restaurações e diagramação das edições.
-          </p>
+            O Public Domain Fanzine é um projeto editorial independente dedicado à preservação e pesquisa da memória dos quadrinhos em domínio público, especialmente os publicados nos Estados Unidos durante a Era de Ouro (1938–1956). 
+          </p>  
+          <p>
+            O projeto ganhou forma quando Cristiano Rohling, tradutor e pesquisador de Londrina (PR), passou a colaborar com Lancelott Martins, desenhista e estudioso de Parnaíba (PI), conhecido por seu trabalho sobre super-heróis brasileiros. Junto de Rogério Prestes, de Caruaru (PE), eles formam a equipe principal, responsável por traduções, restaurações e diagramação das edições.          
+          </p>  
           <p>
             As revistas do fanzine são concebidas como uma série documental, voltada a valorizar e reintroduzir personagens e histórias esquecidas, resgatadas de acervos digitais como o Comic Book Plus e o Digital Comics Museum. O grupo utiliza softwares livres — como GIMP e Inkscape — e técnicas de restauração digital que buscam manter as cores e o espírito original das obras.
           </p>

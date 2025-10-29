@@ -36,7 +36,10 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
 };
 
 const Editions: React.FC = () => {
-  const editions = getEditions();
+  const allEditions = getEditions();
+  const mainSeriesEditions = allEditions.filter(e => e.title !== "Chocantes Histórias #01");
+  const specialEditions = allEditions.filter(e => e.title === "Chocantes Histórias #01");
+  
   const [selectedEdition, setSelectedEdition] = useState<Edition | null>(null);
 
   return (
@@ -44,14 +47,30 @@ const Editions: React.FC = () => {
       <section className="py-24 bg-transparent">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Edições Publicadas</h2>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Edições</h2>
             <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Navegue pelo nosso arquivo de zines.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-            {editions.map((edition) => (
+            {mainSeriesEditions.map((edition) => (
               <EditionCard key={edition.issue} edition={edition} onSelect={() => setSelectedEdition(edition)} />
             ))}
           </div>
+
+          {specialEditions.length > 0 && (
+            <div className="mt-24 pt-16 border-t-2 border-brand-secondary/20">
+              <div className="text-center mb-12">
+                 <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-brand-secondary">Séries Especiais</h2>
+                 <p className="mt-4 text-lg text-medium-text max-w-3xl mx-auto">
+                    Explore nossas coleções temáticas! <span className="text-light-text font-bold">Chocantes Histórias</span> é a nossa primeira série dedicada ao melhor do horror, crime e ficção científica da Era de Ouro. Fique de olho para futuros lançamentos de romance, western e mais.
+                 </p>
+              </div>
+              <div className="max-w-md mx-auto">
+                {specialEditions.map(edition => (
+                  <EditionCard key={edition.issue} edition={edition} onSelect={() => setSelectedEdition(edition)} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
       <EditionModal edition={selectedEdition} onClose={() => setSelectedEdition(null)} />

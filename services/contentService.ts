@@ -103,6 +103,23 @@ export const getEditions = (): Edition[] => [
       }
     ]
   },
+  {
+    issue: 7,
+    title: "Chocantes Histórias #01",
+    date: "Inverno 2025",
+    status: "coming-soon",
+    excerpt: "A nova revista CHOCANTES HISTÓRIAS chega para resgatar o melhor do terror, crime e ficção científica da Era de Ouro dos quadrinhos!",
+    description: `A nova revista CHOCANTES HISTÓRIAS chega para resgatar o melhor do terror, crime e ficção científica da Era de Ouro dos quadrinhos! Uma seleção eletrizante de contos visuais que marcaram época, assinados por mestres como Jack Kirby, Joe Kubert, Gene Colan, Steve Ditko, Frank Frazetta e George Roussos (Cellardo) — artistas que definiram o imaginário fantástico das revistas pulp e dos comics clássicos.\n\nChocantes Histórias é uma publicação do selo Public Domain Fanzine, dedicada à preservação, tradução e restauração de obras em domínio público. Cada página é um mergulho na imaginação vibrante dos anos 40 e 50 — uma era em que o medo, a moral e o fantástico se misturavam para criar experiências verdadeiramente únicas.`,
+    coverImageUrl: "https://publicdomainfanzine.puter.site/img/Ed_chocantes_01.jpg",
+    price: 24.00,
+    characterInfo: [
+      {
+        name: "Mestres do Terror",
+        description: "Uma coletânea de histórias criadas por lendas como Jack Kirby, Joe Kubert, Gene Colan, Steve Ditko e Frank Frazetta, que definiram os gêneros de terror e ficção científica nos quadrinhos.",
+        imageUrl: "https://picsum.photos/seed/mestresdoterror/400/400"
+      }
+    ]
+  }
 ];
 
 export const getTeam = (): TeamMember[] => [
