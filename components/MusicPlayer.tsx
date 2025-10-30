@@ -87,7 +87,7 @@ const MusicPlayer: React.FC = () => {
                 onEnded={handleNext}
                 preload="auto"
             />
-            <div className="fixed bottom-4 right-4 z-50 w-80 bg-dark-bg/80 backdrop-blur-md border border-gray-800 rounded-lg shadow-2xl text-light-text font-mono animate-fade-in-scale">
+            <div className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-4 sm:w-80 z-50 bg-dark-bg/80 backdrop-blur-md border border-gray-800 rounded-lg shadow-2xl text-light-text font-mono animate-fade-in-scale">
                 <div className="p-4 border-b border-gray-800 flex justify-between items-center">
                     <h3 className="font-bold tracking-widest uppercase">PDF Radio</h3>
                     <button onClick={() => setIsOpen(false)} className="text-medium-text hover:text-light-text" aria-label="Close music player">

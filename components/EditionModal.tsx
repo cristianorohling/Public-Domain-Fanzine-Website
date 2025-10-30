@@ -7,6 +7,13 @@ interface EditionModalProps {
   onClose: () => void;
 }
 
+const YouTubeIcon: React.FC<{className?: string}> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  </svg>
+);
+
+
 const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
   const { addToCart, cartItems } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -62,7 +69,7 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
           </button>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-1 p-4">
+            <div className="md:col-span-1 p-0 sm:p-4">
               <img 
                 src={edition.coverImageUrl} 
                 alt={`Cover for ${edition.title}`} 
@@ -72,14 +79,13 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
             </div>
             <div className="md:col-span-2">
               <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 text-light-text">{edition.title}</h2>
-              <p className="text-medium-text text-lg mb-8 whitespace-pre-wrap">{edition.description}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4 text-light-text">{edition.title}</h2>
               
               {edition.status !== 'coming-soon' && (
-                <div className="mb-8 bg-dark-bg p-4 rounded-lg border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="my-6 bg-dark-bg p-4 rounded-lg border border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
-                    <span className="text-3xl font-bold text-brand-primary font-mono">
-                      R$ {edition.price.toFixed(2)}
+                    <span className="text-2xl sm:text-3xl font-bold text-brand-primary font-mono">
+                      R$ {edition.price.toFixed(2).replace('.', ',')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -105,19 +111,23 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
                   </div>
                 </div>
               )}
+              
+              <p className="text-medium-text text-base sm:text-lg mb-8 whitespace-pre-wrap">{edition.description}</p>
+              
+              {edition.youtubeVideoId && (
+                <div className="mb-8">
+                    <a
+                        href={`https://www.youtube.com/watch?v=${edition.youtubeVideoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center justify-center w-full sm:w-auto px-6 py-2 text-base font-bold text-light-text bg-red-600 uppercase tracking-widest rounded-md border-2 border-red-600 transition-all duration-300 hover:bg-transparent hover:text-red-500 hover:border-red-500"
+                    >
+                        <YouTubeIcon className="w-6 h-6 mr-3" />
+                        <span>Ver no YouTube</span>
+                    </a>
+                </div>
+              )}
 
-              <h3 className="text-xl font-bold text-light-text border-b-2 border-brand-primary pb-2 mb-4">Personagens em Destaque</h3>
-              <div className="space-y-6">
-                {edition.characterInfo.map(char => (
-                  <div key={char.name} className="flex items-start gap-4">
-                    <img src={char.imageUrl} alt={char.name} className="w-24 h-24 rounded-full object-cover border-2 border-gray-700 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-bold text-lg text-light-text">{char.name}</h4>
-                      <p className="text-medium-text">{char.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

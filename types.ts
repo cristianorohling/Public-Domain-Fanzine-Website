@@ -7,6 +7,7 @@ export interface Edition {
   coverImageUrl: string;
   price: number;
   status?: 'coming-soon';
+  youtubeVideoId?: string;
   characterInfo: {
     name: string;
     description: string;

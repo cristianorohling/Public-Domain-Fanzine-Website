@@ -39,18 +39,18 @@ const Contact: React.FC = () => {
   const emailAddress = "misterquadrinho@gmail.com";
 
   return (
-    <section className="py-24 bg-transparent">
+    <section className="py-16 md:py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Contato</h2>
-          <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Quer tirar uma dúvida, fazer um pedido ou simplesmente bater um papo sobre quadrinhos? Entre em contato conosco!</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter">Contato</h2>
+          <p className="mt-4 text-base sm:text-lg text-medium-text max-w-2xl mx-auto">Quer tirar uma dúvida, fazer um pedido ou simplesmente bater um papo sobre quadrinhos? Entre em contato conosco!</p>
         </div>
         <div className="max-w-md mx-auto text-center">
            <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-lg font-bold text-dark-bg bg-brand-primary uppercase tracking-widest rounded-md border-2 border-brand-primary transition-all duration-300 hover:bg-transparent hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg"
+              className="group inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 text-base sm:px-8 sm:py-4 sm:text-lg font-bold text-dark-bg bg-brand-primary uppercase tracking-widest rounded-md border-2 border-brand-primary transition-all duration-300 hover:bg-transparent hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg"
             >
               <WhatsAppIcon className="w-6 h-6 mr-3" />
               Conversar no WhatsApp

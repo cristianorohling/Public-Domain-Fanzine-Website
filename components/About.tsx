@@ -3,13 +3,13 @@ import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <section className="py-24 bg-transparent">
+    <section className="py-16 md:py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Sobre o Projeto</h2>
-          <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Conheça a nossa missão e a história por trás do fanzine.</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter">Sobre o Projeto</h2>
+          <p className="mt-4 text-base sm:text-lg text-medium-text max-w-2xl mx-auto">Conheça a nossa missão e a história por trás do fanzine.</p>
         </div>
-        <div className="max-w-4xl mx-auto text-lg text-medium-text space-y-6 text-left md:text-justify leading-relaxed">
+        <div className="max-w-4xl mx-auto text-base sm:text-lg text-medium-text space-y-6 text-left md:text-justify leading-relaxed">
           <p>
             O Public Domain Fanzine é um projeto editorial independente dedicado à preservação e pesquisa da memória dos quadrinhos em domínio público, especialmente os publicados nos Estados Unidos durante a Era de Ouro (1938–1956). 
           </p>  

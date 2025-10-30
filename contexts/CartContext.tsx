@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
 import type { CartItem, Edition } from '../types';
+import { SHIPPING_BASE_COST, SHIPPING_ADDITIONAL_COST_PER_ITEM } from '../config/settings';
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -59,9 +60,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     let shippingCost = 0;
     if (totalItems > 0) {
-      const baseShipping = 10.00;
-      const additionalShippingPerItem = 5.00;
-      shippingCost = baseShipping + (totalItems - 1) * additionalShippingPerItem;
+      // Usa as constantes importadas do arquivo de configuração
+      shippingCost = SHIPPING_BASE_COST + (totalItems - 1) * SHIPPING_ADDITIONAL_COST_PER_ITEM;
     }
 
     const total = subtotal + shippingCost;

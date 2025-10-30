@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onCartClick }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl font-bold font-mono text-light-text hover:text-brand-primary transition-colors duration-300">
+            <a href="#" className="text-xl sm:text-2xl font-bold font-mono text-light-text hover:text-brand-primary transition-colors duration-300">
               PDFanzine
             </a>
           </div>

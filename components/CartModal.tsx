@@ -1,5 +1,4 @@
-
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { useCart } from '../contexts/CartContext';
 
 interface CartModalProps {
@@ -22,10 +21,11 @@ const WhatsAppIcon: React.FC<{className?: string}> = ({ className }) => (
     </svg>
 );
 
-const FormInput: React.FC<{name: string, placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, error?: string, type?: string, className?: string, required?: boolean, maxLength?: number}> = 
-({ name, placeholder, value, onChange, error, type = 'text', className = '', required = true, maxLength }) => (
+const FormInput: React.FC<{name: string, placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, error?: string, type?: string, className?: string, required?: boolean, maxLength?: number, onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void, inputRef?: React.RefObject<HTMLInputElement>}> = 
+({ name, placeholder, value, onChange, error, type = 'text', className = '', required = true, maxLength, onBlur, inputRef }) => (
     <div className={className}>
         <input
+            ref={inputRef}
             required={required}
             className={`bg-dark-bg border ${error ? 'border-red-500' : 'border-gray-700'} rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-brand-primary`}
             type={type}
@@ -33,6 +33,7 @@ const FormInput: React.FC<{name: string, placeholder: string, value: string, onC
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             maxLength={maxLength}
         />
         {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
@@ -41,10 +42,17 @@ const FormInput: React.FC<{name: string, placeholder: string, value: string, onC
 
 const StepHeader: React.FC<{title: string; step: number; total: number}> = ({title, step, total}) => (
     <div className="flex justify-between items-baseline mb-6 border-b border-gray-800 pb-3">
-        <h2 className="text-3xl font-bold text-light-text uppercase tracking-tighter">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-light-text uppercase tracking-tighter">{title}</h2>
         <span className="font-mono text-medium-text">Passo {step}/{total}</span>
     </div>
 );
+
+const SpinnerIcon: React.FC<{className?: string}> = ({className}) => (
+    <svg className={`animate-spin ${className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+)
 
 const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
     const { cartItems, updateQuantity, subtotal, shippingCost, total, clearCart } = useCart();
@@ -54,6 +62,10 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
     
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionError, setSubmissionError] = useState<string | null>(null);
+
+    const [cepLoading, setCepLoading] = useState(false);
+    const [cepError, setCepError] = useState<string | null>(null);
+    const numberInputRef = useRef<HTMLInputElement>(null);
     
     const [formState, setFormState] = useState({
         name: '', email: '', whatsapp: '', address: '',
@@ -73,6 +85,7 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                 });
                 setFormErrors({});
                 setSubmissionError(null);
+                setCepError(null);
             }, 300);
         } else {
              setStep('cart');
@@ -94,11 +107,22 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
       return formatted;
     };
 
+    const formatCep = (value: string) => {
+      return value
+        .replace(/\D/g, '')
+        .replace(/^(\d{5})(\d)/, '$1-$2')
+        .slice(0, 9);
+    };
+
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         let { name, value } = e.target;
         
         if (name === 'whatsapp') {
             value = formatPhoneNumber(value);
+        }
+        if (name === 'zip') {
+            value = formatCep(value);
+            if (cepError) setCepError(null);
         }
         
         setFormState(prev => ({ ...prev, [name]: value }));
@@ -106,19 +130,60 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
             setFormErrors(prev => ({ ...prev, [name]: undefined }));
         }
     };
+    
+    const handleCepBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+      const cep = e.target.value.replace(/\D/g, '');
+
+      if (cep.length !== 8) {
+          if (cep.length > 0) setCepError("CEP deve ter 8 dígitos.");
+          return;
+      }
+      
+      setCepError(null);
+      setCepLoading(true);
+
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        if (!response.ok) throw new Error('Falha ao buscar CEP.');
+        
+        const data = await response.json();
+
+        if (data.erro) {
+            throw new Error('CEP não encontrado.');
+        }
+
+        setFormState(prev => ({
+            ...prev,
+            address: data.logradouro,
+            neighborhood: data.bairro,
+            city: data.localidade,
+            state: data.uf
+        }));
+        
+        // Foca no campo de número após o preenchimento
+        numberInputRef.current?.focus();
+
+      } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido.';
+          setCepError(errorMessage);
+          setFormState(prev => ({...prev, address: '', neighborhood: '', city: '', state: ''}));
+      } finally {
+        setCepLoading(false);
+      }
+    };
 
     const validateForm = (): boolean => {
         const errors: Partial<typeof formState> = {};
         if (!formState.name.trim()) errors.name = "Nome é obrigatório.";
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) errors.email = "E-mail inválido.";
         const plainWhatsapp = formState.whatsapp.replace(/\D/g, '');
-        if (plainWhatsapp.length !== 11) errors.whatsapp = "WhatsApp inválido. Use (XX) XXXXX-XXXX.";
+        if (plainWhatsapp.length < 10) errors.whatsapp = "WhatsApp inválido. Use (XX) XXXXX-XXXX.";
+        if (!/^\d{5}-?\d{3}$/.test(formState.zip)) errors.zip = "CEP inválido.";
         if (!formState.address.trim()) errors.address = "Endereço é obrigatório.";
         if (!formState.number.trim()) errors.number = "Número é obrigatório.";
         if (!formState.neighborhood.trim()) errors.neighborhood = "Bairro é obrigatório.";
         if (!formState.city.trim()) errors.city = "Cidade é obrigatória.";
         if (!formState.state) errors.state = "Estado é obrigatório.";
-        if (!/^\d{5}-?\d{3}$/.test(formState.zip)) errors.zip = "CEP inválido.";
 
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
@@ -178,24 +243,38 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     </div>
                 ))}
             </div>
-            <div className="font-mono text-medium-text space-y-2 mb-8"><div className="flex justify-between"><span>Subtotal</span><span>R$ {subtotal.toFixed(2)}</span></div><div className="flex justify-between"><span>Frete</span><span>R$ {shippingCost.toFixed(2)}</span></div><hr className="border-gray-700" /><div className="flex justify-between text-light-text font-bold text-xl"><span>Total</span><span className="text-brand-primary">R$ {total.toFixed(2)}</span></div></div>
-            <div className="flex justify-end"><button type="button" onClick={handleNextFromCart} className="bg-brand-primary text-dark-bg font-bold py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-opacity-80">Próximo &raquo;</button></div>
+            <div className="font-mono text-medium-text space-y-2 mb-8"><div className="flex justify-between"><span>Subtotal</span><span>R$ {subtotal.toFixed(2)}</span></div><div className="flex justify-between"><span>Frete</span><span>R$ {shippingCost.toFixed(2)}</span></div><hr className="border-gray-700" /><div className="flex justify-between text-light-text font-bold text-lg sm:text-xl"><span>Total</span><span className="text-brand-primary">R$ {total.toFixed(2)}</span></div></div>
+            <div className="flex justify-end"><button type="button" onClick={handleNextFromCart} className="w-full sm:w-auto bg-brand-primary text-dark-bg font-bold py-3 sm:py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-opacity-80">Próximo &raquo;</button></div>
         </>
     );
 
     const renderDetailsStep = () => (
         <>
             <StepHeader title="Informações de Entrega" step={2} total={4} />
-            <p className="text-sm text-medium-text mb-4 text-center -mt-4">Por enquanto, não enviamos para fora do Brasil.</p>
+            <p className="text-sm text-medium-text mb-6 text-center -mt-4">Por enquanto, não enviamos para fora do Brasil.</p>
             <div className="grid grid-cols-1 sm:grid-cols-6 gap-4">
                 <FormInput className="sm:col-span-6" name="name" placeholder="Nome Completo" value={formState.name} onChange={handleFormChange} error={formErrors.name} />
-                <FormInput className="sm:col-span-6" name="email" placeholder="Seu E-mail" type="email" value={formState.email} onChange={handleFormChange} error={formErrors.email} />
-                <FormInput className="sm:col-span-6" name="whatsapp" placeholder="WhatsApp (XX) XXXXX-XXXX" type="tel" value={formState.whatsapp} onChange={handleFormChange} error={formErrors.whatsapp} maxLength={15} />
-                <FormInput className="sm:col-span-6" name="address" placeholder="Endereço" value={formState.address} onChange={handleFormChange} error={formErrors.address} />
-                <FormInput className="sm:col-span-2" name="number" placeholder="Número" value={formState.number} onChange={handleFormChange} error={formErrors.number} />
+                <FormInput className="sm:col-span-3" name="email" placeholder="Seu E-mail" type="email" value={formState.email} onChange={handleFormChange} error={formErrors.email} />
+                <FormInput className="sm:col-span-3" name="whatsapp" placeholder="WhatsApp (XX) XXXXX-XXXX" type="tel" value={formState.whatsapp} onChange={handleFormChange} error={formErrors.whatsapp} maxLength={15} />
+
+                <div className="sm:col-span-2 relative">
+                  <FormInput
+                    name="zip"
+                    placeholder="CEP"
+                    value={formState.zip}
+                    onChange={handleFormChange}
+                    onBlur={handleCepBlur}
+                    error={formErrors.zip || cepError || undefined}
+                    maxLength={9}
+                  />
+                  {cepLoading && <SpinnerIcon className="w-5 h-5 text-brand-secondary absolute top-2.5 right-2.5" />}
+                </div>
+
+                <FormInput className="sm:col-span-4" name="address" placeholder="Endereço" value={formState.address} onChange={handleFormChange} error={formErrors.address} />
+                <FormInput className="sm:col-span-2" name="number" placeholder="Número" value={formState.number} onChange={handleFormChange} error={formErrors.number} inputRef={numberInputRef}/>
                 <FormInput className="sm:col-span-4" name="complement" placeholder="Complemento (Opcional)" value={formState.complement} onChange={handleFormChange} required={false} />
-                <FormInput className="sm:col-span-6" name="neighborhood" placeholder="Bairro" value={formState.neighborhood} onChange={handleFormChange} error={formErrors.neighborhood} />
-                <FormInput className="sm:col-span-3" name="city" placeholder="Cidade" value={formState.city} onChange={handleFormChange} error={formErrors.city} />
+                <FormInput className="sm:col-span-3" name="neighborhood" placeholder="Bairro" value={formState.neighborhood} onChange={handleFormChange} error={formErrors.neighborhood} />
+                <FormInput className="sm:col-span-2" name="city" placeholder="Cidade" value={formState.city} onChange={handleFormChange} error={formErrors.city} />
                  <div className="sm:col-span-1">
                     <select
                         required
@@ -209,9 +288,8 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     </select>
                     {formErrors.state && <p className="text-red-500 text-xs mt-1">{formErrors.state}</p>}
                 </div>
-                <FormInput className="sm:col-span-2" name="zip" placeholder="CEP" value={formState.zip} onChange={handleFormChange} error={formErrors.zip} maxLength={9} />
             </div>
-            <div className="flex justify-between mt-8"><button type="button" onClick={() => setStep('cart')} className="bg-gray-700 text-light-text font-bold py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-gray-600">&laquo; Voltar</button><button type="button" onClick={handleNextFromDetails} className="bg-brand-primary text-dark-bg font-bold py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-opacity-80">Próximo &raquo;</button></div>
+            <div className="flex flex-col-reverse sm:flex-row justify-between mt-8 gap-4"><button type="button" onClick={() => setStep('cart')} className="w-full sm:w-auto bg-gray-700 text-light-text font-bold py-3 sm:py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-gray-600">&laquo; Voltar</button><button type="button" onClick={handleNextFromDetails} className="w-full sm:w-auto bg-brand-primary text-dark-bg font-bold py-3 sm:py-2 px-6 rounded-md uppercase tracking-wider transition-colors hover:bg-opacity-80">Próximo &raquo;</button></div>
         </>
     );
 
@@ -220,16 +298,16 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
             <StepHeader title="Conferência do Pedido" step={3} total={4} />
             <div className="space-y-6">
                 <div className="bg-dark-bg p-4 rounded-lg border border-gray-700">
-                    <div className="flex justify-between items-baseline mb-3"><h3 className="text-xl font-bold text-light-text">Resumo do Pedido</h3><button onClick={() => setStep('cart')} className="text-sm text-brand-secondary hover:underline">Revisar Pedido</button></div>
+                    <div className="flex justify-between items-baseline mb-3"><h3 className="text-lg sm:text-xl font-bold text-light-text">Resumo do Pedido</h3><button onClick={() => setStep('cart')} className="text-sm text-brand-secondary hover:underline">Revisar Pedido</button></div>
                     {cartItems.map(item => (<p key={item.issue} className="text-medium-text">{item.quantity}x {item.title}</p>))}
                     <p className="text-right font-bold text-lg text-brand-primary mt-2">Total: R$ {total.toFixed(2)}</p>
                 </div>
                 <div className="bg-dark-bg p-4 rounded-lg border border-gray-700">
-                    <div className="flex justify-between items-baseline mb-3"><h3 className="text-xl font-bold text-light-text">Dados de Entrega</h3><button onClick={() => setStep('details')} className="text-sm text-brand-secondary hover:underline">Revisar Endereço</button></div>
+                    <div className="flex justify-between items-baseline mb-3"><h3 className="text-lg sm:text-xl font-bold text-light-text">Dados de Entrega</h3><button onClick={() => setStep('details')} className="text-sm text-brand-secondary hover:underline">Revisar Endereço</button></div>
                     <div className="text-medium-text font-mono text-sm"><p>{formState.name}</p><p>{formState.email} / {formState.whatsapp}</p><p>{formState.address}, {formState.number} {formState.complement}</p><p>{formState.neighborhood}, {formState.city} - {formState.state}</p><p>{formState.zip}</p></div>
                 </div>
             </div>
-            <div className="flex justify-end mt-8"><button type="button" onClick={() => setStep('payment')} className="bg-brand-primary text-dark-bg font-bold py-3 px-6 rounded-md text-lg uppercase tracking-wider transition-colors hover:bg-opacity-80">Prosseguir</button></div>
+            <div className="flex justify-end mt-8"><button type="button" onClick={() => setStep('payment')} className="w-full sm:w-auto bg-brand-primary text-dark-bg font-bold py-3 px-6 rounded-md text-base sm:text-lg uppercase tracking-wider transition-colors hover:bg-opacity-80">Prosseguir</button></div>
         </>
     );
 
@@ -237,10 +315,10 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
         <div className="text-center">
             <StepHeader title="Pagamento" step={4} total={4} />
             <div className="p-4 bg-dark-bg rounded-lg border border-gray-700">
-                <img src={PIX_QR_CODE_URL} alt="QR Code para pagamento PIX" className="mx-auto w-48 h-48 rounded-md border-4 border-light-text mb-4" />
-                <p className="text-3xl font-bold text-light-text font-mono mb-4">Total: R$ {total.toFixed(2)}</p>
+                <img src={PIX_QR_CODE_URL} alt="QR Code para pagamento PIX" className="mx-auto w-40 h-40 sm:w-48 sm:h-48 rounded-md border-4 border-light-text mb-4" />
+                <p className="text-2xl sm:text-3xl font-bold text-light-text font-mono mb-4">Total: R$ {total.toFixed(2)}</p>
                 <div className="text-left text-medium-text space-y-2 text-sm mb-6">
-                    <p><span className="font-bold text-light-text">1.</span> Faça o PIX usando o QR Code acima.</p>
+                    <p><span className="font-bold text-light-text">1.</span> Faça o PIX usando o QR Code acima no valor indicado.</p>
                     <p><span className="font-bold text-light-text">2.</span> <span className="text-brand-primary font-bold">Envie o comprovante para nosso WhatsApp.</span></p>
                     <p><span className="font-bold text-light-text">3.</span> Clique em "Efetivar Pedido" para registrar sua compra.</p>
                 </div>
@@ -256,16 +334,16 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     <button onClick={() => setStep('details')} className="text-brand-secondary hover:underline">Editar Endereço</button>
                  </div>
                  {submissionError && (<p className="my-4 text-center text-red-500">{submissionError}</p>)}
-                <button onClick={handlePlaceOrder} disabled={isSubmitting} className="w-full bg-brand-secondary text-dark-bg font-bold py-3 px-6 rounded-md text-lg uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-wait">{isSubmitting ? 'Enviando...' : 'Efetivar Pedido'}</button>
+                <button onClick={handlePlaceOrder} disabled={isSubmitting} className="w-full bg-brand-secondary text-dark-bg font-bold py-3 px-6 rounded-md text-base sm:text-lg uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-wait">{isSubmitting ? 'Enviando...' : 'Efetivar Pedido'}</button>
             </div>
         </div>
     );
     
     const renderSuccessStep = () => (
          <div className="text-center py-10">
-            <h3 className="text-3xl font-bold text-green-400">Pedido Enviado!</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-green-400">Pedido Enviado!</h3>
             <p className="text-light-text mt-4 mb-6 max-w-md mx-auto">Obrigado por sua compra! Seu pedido foi registrado. Lembre-se de fazer o pagamento via PIX e nos enviar o comprovante pelo WhatsApp para que possamos iniciar a produção.</p>
-             <a href={`https://wa.me/${WHATSAPP_NUMBER_LINK}?text=${encodeURIComponent(`Olá! Acabei de fazer um pedido no site e gostaria de enviar o comprovante.`)}`} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-dark-bg bg-brand-secondary uppercase tracking-widest rounded-md border-2 border-brand-secondary transition-all duration-300 hover:bg-transparent hover:text-brand-secondary"><WhatsAppIcon className="w-6 h-6 mr-3" /> Enviar Comprovante</a>
+             <a href={`https://wa.me/${WHATSAPP_NUMBER_LINK}?text=${encodeURIComponent(`Olá! Acabei de fazer um pedido no site e gostaria de enviar o comprovante.`)}`} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center px-4 sm:px-6 py-3 text-base sm:text-lg font-bold text-dark-bg bg-brand-secondary uppercase tracking-widest rounded-md border-2 border-brand-secondary transition-all duration-300 hover:bg-transparent hover:text-brand-secondary"><WhatsAppIcon className="w-6 h-6 mr-3" /> Enviar Comprovante</a>
             <p className="text-xs text-medium-text mt-8">Você pode fechar esta janela.</p>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { getEditions } from '../services/contentService';
+import { SHIPPING_BASE_COST } from '../config/settings';
 
-const SHIPPING_COST = 10.00;
 const MERCADO_LIVRE_LINK = "https://mercadolivre.com.br"; // Placeholder link
 
 const OrderForm: React.FC = () => {
@@ -32,16 +32,16 @@ const OrderForm: React.FC = () => {
     }, 0);
   }, [quantities, editions]);
 
-  const total = useMemo(() => subtotal + (subtotal > 0 ? SHIPPING_COST : 0), [subtotal]);
+  const total = useMemo(() => subtotal + (subtotal > 0 ? SHIPPING_BASE_COST : 0), [subtotal]);
 
   return (
-    <section className="py-24 bg-transparent">
+    <section className="py-16 md:py-24 bg-transparent">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">Monte seu Pedido!</h2>
-          <p className="mt-4 text-lg text-medium-text max-w-2xl mx-auto">Adicione as edições que deseja ao seu carrinho.</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter">Monte seu Pedido!</h2>
+          <p className="mt-4 text-base sm:text-lg text-medium-text max-w-2xl mx-auto">Adicione as edições que deseja ao seu carrinho.</p>
         </div>
-        <div className="max-w-3xl mx-auto bg-dark-bg p-8 rounded-lg border border-gray-800">
+        <div className="max-w-3xl mx-auto bg-dark-bg p-4 sm:p-8 rounded-lg border border-gray-800">
           <div className="space-y-6">
             {editions.map(edition => {
               const isComingSoon = edition.status === 'coming-soon';
@@ -76,9 +76,9 @@ const OrderForm: React.FC = () => {
           <div className="mt-8 border-t border-gray-800 pt-6">
              <div className="space-y-2 font-mono">
                 <p className="flex justify-between text-medium-text"><span>Subtotal:</span> <span>R$ {subtotal.toFixed(2)}</span></p>
-                <p className="flex justify-between text-medium-text"><span>Frete Fixo:</span> <span>R$ {subtotal > 0 ? SHIPPING_COST.toFixed(2) : '0.00'}</span></p>
+                <p className="flex justify-between text-medium-text"><span>Frete Fixo:</span> <span>R$ {subtotal > 0 ? SHIPPING_BASE_COST.toFixed(2) : '0.00'}</span></p>
                 <hr className="border-gray-700 my-2" />
-                <p className="flex justify-between text-2xl font-bold text-light-text"><span>Total:</span> <span className="text-brand-primary">R$ {total.toFixed(2)}</span></p>
+                <p className="flex justify-between text-xl sm:text-2xl font-bold text-light-text"><span>Total:</span> <span className="text-brand-primary">R$ {total.toFixed(2)}</span></p>
               </div>
           </div>
           
@@ -87,7 +87,7 @@ const OrderForm: React.FC = () => {
               href={subtotal > 0 ? MERCADO_LIVRE_LINK : undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className={`w-full block text-center bg-brand-primary text-dark-bg font-bold py-4 px-6 rounded-md text-lg uppercase tracking-wider transition-all duration-300 ${subtotal > 0 ? 'opacity-100 hover:bg-opacity-80' : 'opacity-50 cursor-not-allowed'}`}
+              className={`w-full block text-center bg-brand-primary text-dark-bg font-bold py-3 sm:py-4 px-6 rounded-md text-base sm:text-lg uppercase tracking-wider transition-all duration-300 ${subtotal > 0 ? 'opacity-100 hover:bg-opacity-80' : 'opacity-50 cursor-not-allowed'}`}
               aria-disabled={subtotal === 0}
               onClick={(e) => subtotal === 0 && e.preventDefault()}
             >
